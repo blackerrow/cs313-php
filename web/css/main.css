@@ -1,0 +1,133 @@
+/*This applies to mobile View and the basic styles apply to all views */
+
+body{
+    font-family: sans-serif;
+   
+}
+main{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content:center;
+}
+#top{
+   display:flex;
+   width:98%;
+   margin:auto; 
+   align-items:center;
+   justify-content: space-between;
+   border-bottom:1px solid black;
+
+}
+nav{
+    
+}
+.sticky{
+    position:fixed;
+    top:0;
+    width:90%;
+    background-color:white;
+}
+.navLi:hover {
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+#top nav ul{
+    display:flex;
+    margin-right:10%;      
+}
+#top nav ul li{
+    list-style: none;
+    padding:1vw;
+    }
+#top nav ul li a{
+    width:100%;
+    height: 100%;
+    text-decoration:none;
+    color:black;
+    
+}
+#topLogo{
+    height:75px;
+    padding: 1vw;
+    position:relative;
+}
+section{
+    /*height:50vw;*/
+}
+#mainName{
+    text-align: center;
+    margin:5vw auto 3vw auto;
+    font-size:5vw;
+    border: 1px solid black;
+    width: 90%;
+    padding:2vw;
+    background-color:#08183C;
+    color:white;
+}
+/*#mainName:hover{
+    background-color:gray;
+    color:white;
+    font-family: 'Meie Script', cursive;
+}*/
+
+header {
+    background-color:lightgray;
+    width:90%;
+    padding:2vw;
+    margin:auto auto 3vw auto;
+    color:#897721;
+}
+#home{
+width:100%;
+margin:2vw auto 20vw auto;
+display:flex;
+flex-direction:column;
+align-items:center;}
+#learnMore{
+    border:1px solid black;
+    padding:1vw;
+}
+#learnMore:hover{
+    background-color:#897721;
+    color:#08183C;
+}
+main h2 {
+    font-family: 'Special Elite', cursive;
+    text-align:center;
+    margin:auto auto 0 auto;
+}
+header p {
+    font-family: 'Meie Script', cursive;
+    text-align: center;
+    margin: .5vw auto 
+}
+#preAbout{
+            padding-bottom:20vw;
+}
+a[href='#preAbout'] {
+    text-decoration:none;
+    color:inherit;
+}
+#about{
+/*   margin-top:50%;*/
+}
+#about #content{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    align-items:flex-start;
+    justify-content:space-between;
+   
+}
+#about #content div{
+     width:75%;
+    padding:2%;
+    margin:auto;
+}
+footer{
+    text-align: center;
+    margin:auto;
+    border-top:1px solid black;
+
+}
