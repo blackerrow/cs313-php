@@ -24,28 +24,17 @@ $db = get_db();
     <h1>Here is a list of Users: </h1>
 
     <?php
-    // In this example, for simplicity, the query is executed
-    // right here and the data echoed out as we iterate the query.
-    // You could imagine that in a more involved application, we
-    // would likely query the database in a completely separate file / function
-    // and build a list of objects that held the components of each
-    // scripture. Then, here on the page, we could simply call that
-    // function, and iterate through the list that was returned and
-    // print each component.
-    // First, prepare the statement
-    // Notice that we avoid using "SELECT *" here. This is considered
-    // good practice so we don't inadvertently bring back data we don't
-    // want, especially if the database changes later.
-    $statement = $db->prepare("SELECT firstName, lastName FROM users");
+
+    $statement = $db->prepare("SELECT u.firstname, u.lastname, e.entrytext, to_char(e.entrydate, 'DD-MM-YYYY') as date from users u JOIN entries e USING(userid);");
     $statement->execute();
     // Go through each result
-    while ($row = $statement->fetch(PDO::FETCH_ASSOC))
-    {
-        // The variable "row" now holds the complete record for that
-        // row, and we can access the different values based on their
-        // name
+    $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($data as $info) {
         echo '<p>';
-        echo $row['lastName'].",  ".$row['firstName'];
+        echo 'Name:'. $info['lastname'] . ', ' . $info['firstname'].'';
+        echo '<br>'.'Date: '. $info['date'];
+        echo '<br>' . $info['entrytext'];
         echo '</p>';
     }
     ?>
