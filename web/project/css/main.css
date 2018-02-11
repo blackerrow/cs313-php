@@ -1,0 +1,13 @@
+.jumbotron{
+    background-color: steelblue;
+    color:white;
+    padding:2vw 1vw;
+}
+form{
+    width:60%;
+}
+.grayback{
+    background-color: lightslategray;
+    color:white;
+}
+.logo
