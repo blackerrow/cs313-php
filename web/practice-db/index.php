@@ -8,6 +8,8 @@
  ***********************************************************/
 require "dbConnect.php";
 $db = get_db();
+
+var_dump($db);
 ?>
 <!DOCTYPE html>
 <html>
