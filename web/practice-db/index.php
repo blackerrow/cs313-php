@@ -9,7 +9,8 @@
 require "dbConnect.php";
 $db = get_db();
 
-var_dump($db);
+//var_dump($db);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@ var_dump($db);
 <body>
 <div>
 
-    <h1>Scripture Resources</h1>
+    <h1>Here is a list of Users: </h1>
 
     <?php
     // In this example, for simplicity, the query is executed
@@ -35,7 +36,7 @@ var_dump($db);
     // Notice that we avoid using "SELECT *" here. This is considered
     // good practice so we don't inadvertently bring back data we don't
     // want, especially if the database changes later.
-    $statement = $db->prepare("SELECT book, chapter, verse, content FROM scriptures");
+    $statement = $db->prepare("SELECT * FROM users");
     $statement->execute();
     // Go through each result
     while ($row = $statement->fetch(PDO::FETCH_ASSOC))
@@ -44,8 +45,7 @@ var_dump($db);
         // row, and we can access the different values based on their
         // name
         echo '<p>';
-        echo '<strong>' . $row['book'] . ' ' . $row['chapter'] . ':';
-        echo $row['verse'] . '</strong>' . ' - ' . $row['content'];
+        echo $row['lastName'].",  ".$row['firstName'];
         echo '</p>';
     }
     ?>
