@@ -11,15 +11,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav>
-    <h2><a href="../"> my || journal</a></h2>
-    <div class="buttons">
-        <a  href="../accounts/" class="btn btn-warning navbar-btn">myHome</a>
-        <?php if(isset($_SESSION['loggedIn'])){
-            echo '<a class="btn btn-danger navbar-btn" href="../accounts?action=Logout">LogOut</a>';}
-        ?>
-    </div>
-</nav>
+<?php
+if ($_SESSION['loggedIn']){
+echo "<nav><h2><a href='../'> my || journal</a></h2><div class='buttons'>";
+        echo "<a  href='../accounts/' class='btn btn-warning navbar-btn'>myHome</a>";
+        if(isset($_SESSION['loggedIn'])){
+        echo '<a class="btn btn-danger navbar-btn" href="../accounts?action=Logout">LogOut</a>';}
+
+        echo "</div></nav>";
+}
+?>
 <div class="jumbotron">
     <h1>Welcome to Journal||Me</h1>
     <p>Journey before destination</p>
