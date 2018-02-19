@@ -31,8 +31,8 @@ include '../modules/navigation.php';
         echo ' </div>';
         echo ' <div class="panel-body">';
         echo '<p>' . $entry['entrytext'] . '</p>';
-        echo "<a class='btn btn-primary' href = '/cs313php/project/entries/?action=editEntry&id=$entry[entryid]'>edit</a> | ";
-        echo "<a class='btn btn-danger' href = '/cs313php/project/entries/?action=goDelete&id=$entry[entryid]'>delete</a>";
+        echo "<a class='btn btn-primary' href = '../entries/?action=editEntry&id=$entry[entryid]'>edit</a> | ";
+        echo "<a class='btn btn-danger' href = '../entries/?action=goDelete&id=$entry[entryid]'>delete</a>";
         echo ' </div></div>';
 
     }
