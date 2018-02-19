@@ -1,6 +1,18 @@
 <?php
 session_start();
-include 'Modules/head.php'; ?>
+if ($_SESSION['loggedIn']){
+    echo "<nav><h2><a href='../'> my || journal</a></h2><div class='buttons'>";
+    echo "<a  href='../accounts/' class='btn btn-warning navbar-btn'>myHome</a>";
+         if(isset($_SESSION['loggedIn'])){
+            echo '<a class="btn btn-danger navbar-btn" href="../accounts?action=Logout">LogOut</a>';}
+
+   echo "</div></nav>";
+}
+include 'Modules/head.php';
+
+?>
+
+
 
 
 <form action="./accounts/" class="inline-form" method="post" enctype="multipart/form-data" name="getStarted">

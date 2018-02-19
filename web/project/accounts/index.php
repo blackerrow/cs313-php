@@ -118,7 +118,10 @@ switch ($action) {
 
 
     default:
-        include '../view/your-page.php';
-
+        if ($_SESSION['loggedIn']) {
+            include '../view/your-page.php';
+        }else{
+            include '../index.php';
+        }
 
 }
