@@ -11,10 +11,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <?php
-include '../modules/navigation.php';
+include './modules/navigation.php';
 ?>
-<body>
+
 <div class="jumbotron intro">
     <h2>Delete your Journal Entry, <?php echo $_SESSION['clientData']['firstname'];  ?>?</h2>
 </div>
