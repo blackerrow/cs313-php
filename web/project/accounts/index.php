@@ -121,7 +121,7 @@ switch ($action) {
         if ($_SESSION['loggedIn']) {
             include '../view/your-page.php';
         }else{
-            include '../index.php';
+            include '../view/home.php   ';
         }
 
 }
