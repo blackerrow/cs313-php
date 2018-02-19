@@ -27,7 +27,7 @@
         <h2>Log In</h2>
     </div>
 
-<form action ="/cs313php/project/accounts/index.php?action=Login" method="post" enctype="multipart/form-data" name="SignInNotifaction">
+<form action ="../accounts/index.php?action=Login" method="post" enctype="multipart/form-data" name="SignInNotifaction">
     <div class="form-group">
        <label for="clientEmail">Email: </label> <input type="email" name="clientEmail" class="form-control" size="50" placeholder="email address" required>
     </div>
