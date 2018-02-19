@@ -100,7 +100,7 @@ switch ($action) {
         function buildEntryEditForm($entry){
 
 
-            $review = "<form  class='inline-form' action='/cs313php/project/accounts/?action=updateEntry' method='post' enctype='multipart/form-data' name='updateEntry' id= 'updateEntryForm'> ";
+            $review = "<form  class='inline-form' action='../entries/?action=updateEntry' method='post' enctype='multipart/form-data' name='updateEntry' id= 'updateEntryForm'> ";
             $review .= "<h2>$entry[entrytitle]</h2>";
             $review .= "<p>Entered on $entry[date]</p>";
             $review .= "<label>Review Text </label><br>";
@@ -166,7 +166,7 @@ switch ($action) {
         $_SESSION['entryId'] = $entry['entryid'];
 
         function buildEntryEditForm($entry){
-            $review = "<form  class='inline-form' action='/cs313php/project/accounts/' method='post' enctype='multipart/form-data' name='updateEntry' id= 'updateEntryForm'> ";
+            $review = "<form  class='inline-form' action='../entries/' method='post' enctype='multipart/form-data' name='updateEntry' id= 'updateEntryForm'> ";
             $review .= "<div class='panel panel-default'>";
             $review .= "<div class='panel-heading'>";
             $review .= "<h2>Entry Title: $entry[entrytitle]</h2>";
