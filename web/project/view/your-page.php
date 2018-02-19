@@ -25,8 +25,8 @@ include '../modules/navigation.php';
 
 
 <div class="yourPage">
-    <a class="btn btn-success" href="/cs313php/project/accounts/index.php?action=viewEntries">View previous entries</a>
-    <a class="btn btn-primary" href="/cs313php/project/accounts/index.php?action=goAddEntry">Add a new entry</a>
+    <a class="btn btn-success" href="../entries/index.php?action=viewEntries">View previous entries</a>
+    <a class="btn btn-primary" href="../entries/index.php?action=goAddEntry">Add a new entry</a>
 </div>
 <?php
 if ($action == 'viewEntries') {

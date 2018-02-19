@@ -24,17 +24,26 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Log In</h2>
+        <h2>Register for an account!</h2>
     </div>
 
-<form action ="/cs313php/project/accounts/index.php?action=Login" method="post" enctype="multipart/form-data" name="SignInNotifaction">
+<form action ="../accounts/" method="post" enctype="multipart/form-data" name="SignInNotifaction">
+
     <div class="form-group">
-       <label for="clientEmail">Email: </label> <input type="email" name="clientEmail" class="form-control" size="50" placeholder="email address" required>
+        <label for="firstname">First Name:</label>
+        <input type="text" name="firstname" class="form-control" size="50" placeholder="ex: John" required>
+    </div>
+    <div class="form-group">
+        <label for="lastname">Last Name:</label>
+        <input type="text" name="lastname" class="form-control" size="50" placeholder="ex: Jacobjinglehimersmith" required>
+    </div>
+    <div class="form-group">
+       <label for="clientEmail">Email:</label>
+        <input type="email" name="clientEmail" class="form-control" size="50" placeholder="email address" value="<?php if (isset($clientEmail)){echo $clientEmail;}?>" required>
     </div>
     <div class="form-group">
         <label for="clientPassword">Password: </label><input name="clientPassword" type="password" class="form-control" size="50" placeholder="password" required>
     </div>
-        <input type="submit" name="action" value="Login" class="btn btn-success">
-
+        <input type="submit" name="action" value="register" class="btn btn-success">
 </form>
 </div>

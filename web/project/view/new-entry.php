@@ -19,7 +19,7 @@ include '../modules/navigation.php';
 </div>
 
 
-<form class="inline-form" action ="/cs313php/project/accounts/" method="post" enctype="multipart/form-data" name="SignInNotifaction">
+<form class="inline-form" action ="../entries/" method="post" enctype="multipart/form-data" name="SignInNotifaction">
 
     <label for="title">Title:</label>
         <input type="text" name="title" class="form-control" size="50" placeholder="ex: BEST DAY EVER!" required>

@@ -25,145 +25,96 @@ switch ($action) {
             $stmt->closeCursor();
             return $clientData;
         }
+
         $clientData = getClient($clientEmail);
         $_SESSION['clientData'] = $clientData;
+
+        if ( $_SESSION['clientData']['password'] == $clientPassword) {
         $_SESSION['loggedIn'] = TRUE;
         include '../view/your-page.php';
+        }else{
+            $message = '<div class="panel panel-default">';
+            $message .= '<div class="panel-heading">';
+            $message .= "incorrect email and/or password, please check your spelling and try again.";
+            $message .= "</div></div>";
+            include '../view/login.php';
+        }
         break;
-    case 'viewEntries':
-        $userId = $_SESSION['clientData']['userid'];
+    case 'Logout' :
+        session_destroy();
+        header('location: ../');
+        break;
+    case 'goRegister' :
+        $clientEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        include '../view/register.php';
+        break;
+    case'register':
+        $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
+        $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
+        $clientFirstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $clientLastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
 
-        function getEntries($userId){
+//        THIS FUNCTION WILL CHECK IF THE EMAIL ALREADY EXISTS:
+        function checkExistingEmail($clientEmail) {
             $db = get_db();
-            $sql = 'SELECT entryid, entrytitle, to_char(entrydate, \'MM-DD-YYYY\') as date, entrytext from entries where userid = :userid';
+            $sql = 'SELECT email FROM users WHERE email = :email';
             $stmt = $db->prepare($sql);
-            $stmt->bindValue(':userid', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $clientEmail, PDO::PARAM_STR);
             $stmt->execute();
-            $entries = $stmt->fetchALL(PDO::FETCH_ASSOC);
+            $matchEmail = $stmt->fetch(PDO::FETCH_NUM);
             $stmt->closeCursor();
-            return $entries;
+            if(empty($matchEmail)){
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+//        CALL THE FUNCTION TO CHECK IF THE EMAIL EXISTS
+        $existingEmail = checkExistingEmail($clientEmail);
+
+//          IF EMAIL ALREDY EXISTS,  DISPLAY ERROR MESSAGE & GIVE THE OPTION FOR THE USER TO LOG IN INSTEAD
+        if($existingEmail){
+            $message = '<div class="panel panel-default">';
+            $message .= '<div class="panel-heading">';
+            $message .= "That email already exists, would you like to login instead?";
+            $message .= "<a class='btn btn-default' href='./accounts/action?=login'>Log in</a>";
+            $message .= "<br>You may also try again below:</div></div>";
+            include '../view/register.php';
         }
 
-        $entries = getEntries($userId);
+//        CONTINUE TO REGISTER THE USER:
 
-//             foreach ($entries as $entry) {
-//            echo '<div class="panel panel-default">';
-//            echo '<div class="panel-heading">';
-//            echo '<h3><span> Title: <strong>'. $entry['entrytitle'].'</strong></span>';
-//            echo '<span> Date: <strong>'. $entry['date'].'</strong></span>';
-//            echo '</h3>';
-//            echo ' </div>';
-//            echo ' <div class="panel-body">';
-//            echo '<p>'.$entry['entrytext'].'</p>';
-//            echo ' </div></div>';
-//            }
-
-        include '../view/entries.php';
-    break;
-
-    case 'addEntry':
-        $userId = $_SESSION['clientData']['userid'];
-        $entryTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-        $entryText = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_STRING);
-
-        function addEntry($userId, $title, $text){
+    //THIS FUNCTION WILL REGISTER THE USER-
+        function registerUser($firstname, $lastname, $email, $password){
             $db = get_db();
-            $sql = 'INSERT INTO entries (userid, entrytitle, entrytext) VALUES (:userid, :title, :text)';
+            $sql = 'INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)';
             $stmt = $db->prepare($sql);
-            $stmt->bindValue(':userid', $userId, PDO::PARAM_STR);
-            $stmt->bindValue(':title', $title, PDO::PARAM_STR);
-            $stmt->bindValue(':text', $text, PDO::PARAM_STR);
+            $stmt->bindValue(':firstname', $firstname, PDO::PARAM_STR);
+            $stmt->bindValue(':lastname', $lastname, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $stmt->bindValue(':password', $password, PDO::PARAM_STR);
             $stmt->execute();
             $rowCount = $stmt->rowCount();
             $stmt->closeCursor();
             return $rowCount;
         }
 
-        $newEntry = addEntry($userId, $entryTitle, $entryText);
+        $regOutcome = registerUser($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
 
-        if ($newEntry == 1){
-            $message = 'Entry was added succesfully';
-        }else{
-            $message = 'ERROR: entry not added, please contact administrator';
+// Check and report the result
+        if($regOutcome === 1){
+
+            $message = "<h3>Thanks for registering, $clientFirstname! Please use your email and password to login.</h3>";
+            include '../view/login.php';
+            exit;
+        } else {
+            $message = "<p>Sorry $clientFirstname, but the registration failed. Please try again.</p>";
+            include '../view/register.php';
+            exit;
         }
-        include '../view/your-page.php';
-
-    break;
-
-    case 'goAddEntry':
-        include '../view/new-entry.php';
-        break;
-
-        case 'Logout' :
-            session_destroy();
-            header('location: ../');
-        break;
-
-    case 'editEntry':
-
-        $entryId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
-        function getEntry($entryId){
-            $db = get_db();
-            $sql = 'SELECT entryid, entrytitle, to_char(entrydate, \'MM-DD-YYYY\') as date, entrytext from entries where entryid = :entryid';
-            $stmt = $db->prepare($sql);
-            $stmt->bindValue(':entryid', $entryId, PDO::PARAM_STR);
-            $stmt->execute();
-            $entries = $stmt->fetch(PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
-            return $entries;
-        }
-
-        $entry = getEntry($entryId);
-
-        $_SESSION['entryId'] = $entry;
-        function buildEntryEditForm($entry){
-
-
-            $review = "<form  class='inline-form' action='/cs313php/project/accounts/?action=updateEntry' method='post' enctype='multipart/form-data' name='updateEntry' id= 'updateEntryForm'> ";
-            $review .= "<h2>$entry[entrytitle]</h2>";
-            $review .= "<p>Entered on $entry[date]</p>";
-            $review .= "<label>Review Text </label><br>";
-            $review .= "<textarea class='form-control' name = 'newText' required>";
-            $review .= $entry['entrytext'];
-            $review .= "</textarea><br>";
-            $review .= "<input type = 'submit' value = 'update' >";
-            $review .= "<input type = 'hidden' name = 'action' value = 'updateReview'>";
-            $review .= "<input type = 'hidden' name = 'reviewId' value = '$entry[entryid]'>";
-            $review .= "</form>";
-            return $review;
-        }
-
-        $editEntryView= buildEntryEditForm($entry);
-        include '../view/edit-entry.php';
 
         break;
-
-    case 'updateEntry':
-        $entryId = $_SESSION['entryId'];
-        var_dump($entryId);
-        $newText =  filter_input(INPUT_POST, 'newText', FILTER_SANITIZE_STRING);
-        function addEntry($text, $entryId){
-            $db = get_db();
-            $sql = 'UPDATE entries SET  entrytext = :text WHERE entryid = :entryid)';
-            $stmt = $db->prepare($sql);
-            $stmt->bindValue(':text', $text, PDO::PARAM_STR);
-            $stmt->bindValue(':entryid', $entryId, PDO::PARAM_STR);
-            $stmt->execute();
-            $rowCount = $stmt->rowCount();
-            $stmt->closeCursor();
-            return $rowCount;
-        }
-        $newEntry = addEntry($newText, $entryId);
-        if ($newEntry == 1){
-            $message = 'Entry was updated successfully';
-        }else{
-            $message = 'ERROR: entry not updated, please contact administrator';
-        }
-        include '../view/your-page.php';
-
-        break;
-
-
 
 
     default:
