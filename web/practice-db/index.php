@@ -8,9 +8,7 @@
  ***********************************************************/
 require "dbConnect.php";
 $db = get_db();
-
 //var_dump($db);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +19,7 @@ $db = get_db();
 <body>
 <div>
 
-    <h1>Here is a list of Users: </h1>
+    <h1>Current Users</h1>
 
     <?php
 
