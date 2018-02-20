@@ -1,3 +1,21 @@
+@media only screen and (max-width: 400px) {
+
+    form.inline-form {
+        display: flex;
+        flex-direction: column;
+        width:100%;
+
+    }
+  #homeInput{
+        display:block;
+
+    }
+  button.btn {
+      display:block;
+      width:100%;
+  }
+
+}
 .jumbotron{
     background-color: steelblue;
     color:white;
@@ -30,10 +48,7 @@ form{
     width:80%;
     margin:auto;
 }
-.grayback{
-    background-color: lightslategray;
-    color:white;
-}
+
 .input-group{
     width: 80%;
     margin:auto;
@@ -63,4 +78,14 @@ form{
 .entryForm{
     width:90%;
     margin:auto;
+}
+
+@media only screen and (max-width: 400px) {
+
+    .inline-form{
+        display:flex;
+        flex-direction:column;
+    }
+
+
 }

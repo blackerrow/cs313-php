@@ -10,6 +10,7 @@ if ($action == NULL){
 
 switch ($action) {
     case 'login':
+        $clientEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         include '../view/login.php';
         break;
     case 'Login':
