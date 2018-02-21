@@ -9,9 +9,8 @@ session_start();
 //}
 include 'Modules/head.php';
 
+
 ?>
-
-
 
 
 <form action="./accounts/" class="inline-form" method="post" enctype="multipart/form-data" name="getStarted">

@@ -2,6 +2,8 @@
 session_start();
 require "../dbConnect.php";
 $db = get_db();
+
+
 $action = filter_input(INPUT_POST, 'action');
 
 if ($action == NULL){
@@ -16,6 +18,7 @@ switch ($action) {
     case 'Login':
         $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
         $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
+
            function getClient($clientEmail){
             $db = get_db();
             $sql = 'SELECT userid, firstname, lastname, email, password FROM users WHERE email = :email';
@@ -29,8 +32,9 @@ switch ($action) {
 
         $clientData = getClient($clientEmail);
         $_SESSION['clientData'] = $clientData;
+        $hashCheck = password_verify($clientPassword, $_SESSION['clientData']['password']);
 
-        if ( $_SESSION['clientData']['password'] == $clientPassword) {
+        if ($hashCheck) {
         $_SESSION['loggedIn'] = TRUE;
         include '../view/your-page.php';
         }else{
@@ -54,6 +58,8 @@ switch ($action) {
         $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
         $clientFirstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $clientLastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+
+        $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
 
 //        THIS FUNCTION WILL CHECK IF THE EMAIL ALREADY EXISTS:
         function checkExistingEmail($clientEmail) {
@@ -101,7 +107,7 @@ switch ($action) {
             return $rowCount;
         }
 
-        $regOutcome = registerUser($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
+        $regOutcome = registerUser($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
 
 // Check and report the result
         if($regOutcome === 1){

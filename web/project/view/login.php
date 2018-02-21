@@ -39,7 +39,7 @@
 <form action ="../accounts/index.php?action=Login" method="post" enctype="multipart/form-data" name="SignInNotifaction">
     <div class="form-group">
        <label for="clientEmail">Email: </label> <input type="email" name="clientEmail" class="form-control" size="50" placeholder="email address" value="<?php if(isset($clientEmail)){echo $clientEmail;}?>" required>
-    </div>  
+    </div>
     <div class="form-group">
         <label for="clientPassword">Password: </label><input name="clientPassword" type="password" class="form-control" size="50" placeholder="password" required>
     </div>
