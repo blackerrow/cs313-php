@@ -15,7 +15,7 @@ switch ($action) {
 
         function getEntries($userId){
             $db = get_db();
-            $sql = 'SELECT entryid, entrytitle, to_char(entrydate, \'MM-DD-YYYY\') as date, entrytext from entries where userid = :userid order by DATE ASC ';
+            $sql = 'SELECT firstname, entryid, entrytitle, to_char(entrydate, \'MM-DD-YYYY\') as date, entrytext from users JOIN entries USING(userid) where userid = :userid order by DATE ASC ';
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':userid', $userId, PDO::PARAM_STR);
             $stmt->execute();

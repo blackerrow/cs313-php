@@ -31,6 +31,7 @@
     foreach ($entries as $entry) {
         echo '<div class="panel panel-default">';
         echo '<div class="panel-heading">';
+        echo '<h2>Entered by: '. $entry['firstname'] . '</h2>';
         echo '<h3><span> Title: <strong>' . $entry['entrytitle'] . '</strong></span>';
         echo '<span> Date: <strong>' . $entry['date'] . '</strong></span>';
         echo '</h3>';
